@@ -1,24 +1,33 @@
 const btn = document.querySelector(".btn");
+const container = document.querySelector(".section-data");
 
-const html = `
- <li class=""><span class="first">Name:</span> Kenneth J. Scott</li>
+const renderData = function (results) {
+  const html = `
+  <img
+          src="${results.picture.large}"
+          alt=""
+          class="img"
+        />
+   <div class="container">
+  <ul class="od-list">
+ <li class=""><span class="first">Name:</span>${results.name.title}:${results.name.first} ${results.name.last}</li>
           <li class="">
-            <span class="first">Date of Birth :</span> January 6, 1984
+            <span class="first">Date of Birth :</span> ${results.dob.date}
           </li>
           <li class="">
-            <span class="first">address:</span> 1286 Patterson Street Houston,
-            TX 77074
+            <span class="first">address:</span> ${results.location.street.number} ${results.location.street.name} ${results.location.city}, ${results.location.state} , ${results.location.country}
           </li>
           <li>
-            <span class="first">Geo coordinates :</span> 29.744412, -95.479993
+            <span class="first">Geo coordinates :</span> ${results.location.coordinates.latitude} , ${results.location.coordinates.longitude} 
           </li>
-          <li class="="><span class="first">Phone:</span> 0858-8792987</li>
-          <li><span class="first">Email: </span>KennethJScott@rhyta.com</li>
+          <li class="="><span class="first">Phone:</span> ${results.phone}</li>
+          <li><span class="first">Email: </span>${results.email}</li>
         </ul>
-
+ </ul>
+ </div>
 `;
-
-const renderData = function (data) {};
+  container.innerHTML = html;
+};
 const getData = function () {
   fetch("https://randomuser.me/api/")
     .then((res) => {
@@ -26,9 +35,10 @@ const getData = function () {
       return res.json();
     })
     .then((data) => {
-      console.log(...data.results);
+      const results = data.results[0];
+      renderData(results);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => alert(err));
 };
 
 btn.addEventListener("click", function (e) {
