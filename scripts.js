@@ -2,6 +2,9 @@ const btn = document.querySelector(".btn");
 const container = document.querySelector(".section-data");
 
 const renderData = function (results) {
+  // const data = new Intl.DateTimeFormat("en-US").format(`${results.dob.date}`);
+  const date = results.dob.date;
+  const datefomated = date.slice(0, 10);
   const html = `
   <img
           src="${results.picture.large}"
@@ -12,7 +15,7 @@ const renderData = function (results) {
   <ul class="od-list">
  <li class=""><span class="first">Name:</span>${results.name.title}:${results.name.first} ${results.name.last}</li>
           <li class="">
-            <span class="first">Date of Birth :</span> ${results.dob.date}
+            <span class="first">Date of Birth :</span> ${datefomated}
           </li>
           <li class="">
             <span class="first">address:</span> ${results.location.street.number} ${results.location.street.name} ${results.location.city}, ${results.location.state} , ${results.location.country}
